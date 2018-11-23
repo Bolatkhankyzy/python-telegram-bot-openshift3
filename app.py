@@ -46,46 +46,6 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-class arr:
-
-    def __init__(self, num, random_num=random.randint(1, 100)):
-        self.random_num = random_num
-        self.num = num
-
-    def checking(self, bot, update):
-        try:
-            if self.random_num == self.num:
-                ar = 'Вы выиграли!'
-            elif self.random_num > self.num:
-                ar = 'Ваше число меньше моего. Попробуйте еще раз :)'
-            elif self.random_num < self.num:
-                ar = 'Ваше число больше моего. Попробуйте еще раз :)'
-            # ar = int(num) * 370
-        except (NameError, SyntaxError, ValueError):
-            ar = "Введите целое число"
-        bot.send_message(chat_id=update.message.chat_id, text=ar)
-
-
-def guessing(bot, update, args):
-    #input_num = int(update.message.text)
-    input_num = int(args[0])
-    object_num = arr()
-    object_num.checking(input_num)
-
-
-def convert(bot, update, args):
-    try:
-        dollars = int(args[0])
-        tenge = dollars * 373
-    except (SyntaxError, ValueError):
-        tenge = "Введите целое число"
-    bot.send_message(chat_id=update.message.chat_id, text=tenge)
-
-
-#def echo(bot, update):
-#    update.message.reply_text('Вы ввели:  ' + update.message.text)
-
-
 def error(bot, update, error):
     """Запись всех ошибок вызванных Updates."""
     logger.warning('Update "%s" caused error "%s"' % (update, error))
@@ -97,13 +57,7 @@ def main():
     dp = updater.dispatcher  # Объявление диспетчера, чтобы потом зарегистрировать handlers (обработчики)
     dp.add_handler(CommandHandler("start", start))  # Отвечает на команду /start в Телеграм
     dp.add_handler(CommandHandler("help", help))  # Отвечает на команду /help в Телеграм
-    dp.add_handler(CommandHandler("convert", convert, pass_args=True))
     dp.add_handler(CallbackQueryHandler(button))
-    dp.add_handler(CommandHandler("guessing", guessing, pass_args=True))
-
-    # Для ответа бота на текстовые (не командные) сообщения.
-    #dp.add_handler(MessageHandler(Filters.text, echo))  # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
-    # dp.add_handler(MessageHandler(Filters.text, guessing))
 
     # Запись всех ошибок
     dp.add_error_handler(error)
