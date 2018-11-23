@@ -24,9 +24,10 @@ def help(bot, update):
     Это может быть сообщение о том, что ваш бот может делать и список команд"""
     update.message.reply_text('Тут вы можете получить любую помощь.')
 
-    keyboardButtons = [[InlineKeyboardButton("Помощь", callback_data="1")],
-                       [InlineKeyboardButton("Примеры", callback_data="2")],
-                       [InlineKeyboardButton("Ссылка", url="http://google.com")]]
+    keyboardButtons = [[InlineKeyboardButton("скорая помощь", callback_data="1")],
+                       [InlineKeyboardButton("служба пожаратушения", callback_data="2")],
+                       [InlineKeyboardButton("служба газа", callback_data="3")],
+                       [InlineKeyboardButton("Полиция", callback_data="4")]]
     keyboard = InlineKeyboardMarkup(keyboardButtons)
     update.message.reply_text('Сделайте выбор:', reply_markup=keyboard)
 
@@ -34,9 +35,13 @@ def help(bot, update):
 def button(bot, update):
     query = update.callback_query
     if query.data == "1":
-        text = "Вы можете использовать какое-либо из данных действий: +, -, /, *"
+        text = "телефон 103"
     elif query.data == "2":
-        text = "3+4, 44-12, 43/2, 12*90"
+        text = "телефон 101"
+    elif query.date == "3":
+        text = "телефон службы газа 104"
+    elif query.date == "4":
+        text = "телефон 102"
     bot.editMessageText(text=text, chat_id=query.message.chat_id,
                         message_id=query.message.message_id)
 
